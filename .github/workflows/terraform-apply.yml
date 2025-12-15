@@ -12,7 +12,6 @@ permissions:
 jobs:
   apply-hub:
     runs-on: ubuntu-latest
-    environment: hub
     defaults:
       run:
         shell: bash
@@ -27,7 +26,7 @@ jobs:
         with:
           terraform_version: "1.14.2"
 
-      - name: Azure Login (OIDC)
+      - name: Azure Login (OIDC - branch based)
         uses: azure/login@v2
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
@@ -48,8 +47,6 @@ jobs:
       matrix:
         stack: [ spoke-dev, spoke-uat, spoke-prd ]
 
-    environment: ${{ matrix.stack }}
-
     defaults:
       run:
         shell: bash
@@ -64,7 +61,7 @@ jobs:
         with:
           terraform_version: "1.14.2"
 
-      - name: Azure Login (OIDC)
+      - name: Azure Login (OIDC - branch based)
         uses: azure/login@v2
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
