@@ -52,6 +52,11 @@ jobs:
         shell: bash
         working-directory: stacks/${{ matrix.stack }}
 
+    env:
+      # Only provide the password when deploying DEV.
+      # For uat/prd this resolves to an empty string (not a secret leak).
+      TF_VAR_sql_admin_password: ${{ matrix.stack == 'spoke-dev' && secrets.TF_VAR_sql_admin_password || '' }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4

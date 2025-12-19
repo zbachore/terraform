@@ -22,6 +22,17 @@ module "spoke" {
 
   db_subnet_name = "db-snet"
   db_subnet_cidr = "10.1.2.0/24"
+
+  # ---------------------------
+  # Azure SQL (optional)
+  # ---------------------------
+  enable_sql         = var.enable_sql
+  sql_server_name    = var.sql_server_name
+  sql_database_name  = var.sql_database_name
+  sql_admin_login    = var.sql_admin_login
+  sql_admin_password = var.sql_admin_password
+  sql_version        = var.sql_version
+  sql_sku_name       = var.sql_sku_name
 }
 
 module "peering" {
@@ -38,3 +49,6 @@ module "peering" {
   hub_to_spoke_name = "ce-hub-to-spk-d-peer"
   spoke_to_hub_name = "ce-spk-d-to-hub-peer"
 }
+
+
+

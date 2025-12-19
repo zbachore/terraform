@@ -25,3 +25,29 @@ resource "azurerm_subnet" "db" {
   virtual_network_name = azurerm_virtual_network.spoke.name
   address_prefixes     = [var.db_subnet_cidr]
 }
+
+# ---------------------------
+# Azure SQL (optional)
+# ---------------------------
+
+resource "azurerm_mssql_server" "sql" {
+  count               = var.enable_sql ? 1 : 0
+  name                = var.sql_server_name
+  resource_group_name = var.lz_rg_name
+  location            = var.location
+  version             = var.sql_version
+
+  administrator_login          = var.sql_admin_login
+  administrator_login_password = var.sql_admin_password
+
+  tags = var.tags
+}
+
+resource "azurerm_mssql_database" "sqldb" {
+  count     = var.enable_sql ? 1 : 0
+  name      = var.sql_database_name
+  server_id = azurerm_mssql_server.sql[0].id
+  sku_name  = var.sql_sku_name
+
+  tags = var.tags
+}
