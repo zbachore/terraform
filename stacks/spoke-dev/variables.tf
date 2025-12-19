@@ -57,3 +57,9 @@ variable "sql_sku_name" {
   type        = string
   default     = "GP_S_Gen5_2"
 }
+
+variable "sql_location" {
+  description = "Azure region for Azure SQL resources in this stack."
+  type        = string
+  default     = null
+}

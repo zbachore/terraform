@@ -12,6 +12,7 @@ module "spoke" {
   source   = "../../modules/spoke"
   location = var.location
   tags     = var.tags
+  sql_location = var.sql_location
 
   lz_rg_name          = "ce-lz-d-rg"
   spoke_vnet_name     = "ce-spk-d-vnet"

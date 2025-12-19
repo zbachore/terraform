@@ -34,7 +34,7 @@ resource "azurerm_mssql_server" "sql" {
   count               = var.enable_sql ? 1 : 0
   name                = var.sql_server_name
   resource_group_name = var.lz_rg_name
-  location            = var.location
+  location = coalesce(var.sql_location, var.location)
   version             = var.sql_version
 
   administrator_login          = var.sql_admin_login
